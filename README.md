@@ -1,2 +1,4 @@
-# eda-analysis
-package for automated eda analysis
+# data-analysis
+package for automated data profiling analysis.
+
+
