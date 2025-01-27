@@ -10,7 +10,7 @@ import pandas as pd
 import xlsxwriter
 from xlsxwriter.utility import xl_rowcol_to_cell
 
-from utility.file_path_ops import (check_is_directory,
+from data_analysis.utility.file_path_ops import (check_is_directory,
                                    append_analysis_directory,
                                    load_file,
                                    check_is_file)

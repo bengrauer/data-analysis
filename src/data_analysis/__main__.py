@@ -5,12 +5,14 @@
 # imports
 import sys
 
-from generate_analysis import run_analysis_routine
+from data_analysis.analysis.generate_analysis import run_analysis_routine
 
 if __name__ == '__main__':
+    file_or_directory = ""
     if len(sys.argv) > 1:
         print('arg 1: ' + str(sys.argv[1]))
         file_or_directory = sys.argv[1]
 
-    file_or_directory = "/media/data/project/data/kg_RussiaHousing/train.csv"
+    if not file_or_directory:
+        file_or_directory = "/media/data/project/data/kg_RussiaHousing/train.csv"
     run_analysis_routine(file_or_directory)
