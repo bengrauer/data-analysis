@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Define the number of samples
-num_samples = 50
+num_samples = 100
 
 # Generate sample data
 data = {
@@ -22,4 +22,4 @@ df = pd.DataFrame(data)
 
 # Print the sample data
 print(df)
-df.to_csv('../data/sample.csv', index=False, header=True)
+df.to_csv('../data/sample_data.csv', index=False, header=True)
