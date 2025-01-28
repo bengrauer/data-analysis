@@ -294,7 +294,9 @@ def generate_excel_workbook(input_file_name, output_file_name):
     print('excel workbook generated: ' + output_file_name)
 
 
-def run_analysis_routine(file_or_directory):
+def run_analysis_routine(file_or_directory, output_directory):
+    directory_to_evaluate = ""
+
     if check_is_file(file_or_directory):
         is_file_to_analyze = True
         is_path_to_analyze = False
@@ -306,11 +308,14 @@ def run_analysis_routine(file_or_directory):
     else:
         is_file_to_analyze = False
         is_path_to_analyze = False
-        print('Error - Invalid file or path passed in.  ' + file_or_directory)
-        return 0
+        raise Exception(f"Error - Invalid file or path passed in.  {file_or_directory}")
+
+    if not check_is_directory(output_directory):
+        raise Exception(f"Error - Invalid output directory passed in.  {output_directory}")
 
     if is_path_to_analyze:
-        output_directory = append_analysis_directory(directory_to_evaluate)
+        if not output_directory:
+            output_directory = append_analysis_directory(directory_to_evaluate)
 
         for file_name in os.listdir(file_or_directory):
             if len(file_name) > 3 and file_name[-4:] == '.csv':
@@ -322,16 +327,17 @@ def run_analysis_routine(file_or_directory):
     elif is_file_to_analyze:
         file_name = os.path.basename(file_or_directory)
         input_directory = os.path.dirname(file_or_directory)
-        output_directory = append_analysis_directory(input_directory)
+        if not output_directory:
+            output_directory = append_analysis_directory(input_directory)
         output_file_name = os.path.join(output_directory, ('analysis_' + str(file_name)[:-4] + '_v2.xlsx'))
         print('file to generate: ' + output_file_name)
         generate_excel_workbook(file_or_directory, output_file_name)
 
 
-if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        print('arg 1: ' + str(sys.argv[1]))
-        file_or_directory = sys.argv[1]
-
-    file_or_directory = "/media/data/project/data/kg_RussiaHousing/train.csv"
-    run_analysis_routine(file_or_directory)
+# if __name__ == '__main__':
+#     if len(sys.argv) > 1:
+#         print('arg 1: ' + str(sys.argv[1]))
+#         file_or_directory = sys.argv[1]
+# 
+#     file_or_directory = "/media/data/project/data/kg_RussiaHousing/train.csv"
+#     run_analysis_routine(file_or_directory)

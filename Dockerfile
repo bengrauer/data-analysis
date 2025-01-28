@@ -24,15 +24,14 @@ ARG PIP_INSTALL_SRC="git+https://$GITHUB_USER:$GITHUB_PAT@github.com/bengrauer/d
 # standard pip install into the os environment.  Run a python script calling the package
 RUN pip install $PIP_INSTALL_SRC
 RUN echo "from data_analysis.analysis import generate_analysis" >> /application/data_analysis_package/run_app.py && \
-    echo "generate_analysis.run_analysis_routine('/app/data/sample.csv')" >> /application/data_analysis_package/run_app.py
+    echo "generate_analysis.run_analysis_routine(file_or_directory='/app/data/input/sample_data.csv', output_directory='/app/data/output/')" >> /application/data_analysis_package/run_app.py
 
 # option #2
 # standalone directory install.  
 RUN pip install --target /application/data_analysis_script $PIP_INSTALL_SRC --no-dependencies
 ENV PYTHONPATH="${PYTHONPATH}:/application/data_analysis/script_run/"
 
-
-RUN alias ll='ls -fal'
+RUN alias ll='ls -l'
 
 CMD ["/bin/bash"]
 
@@ -40,4 +39,6 @@ CMD ["/bin/bash"]
 #CMD ["python", "/application/data_analysis/package_run/run_app.py"]
 
 # option #2 - run via relative path scripts
-#CMD ["python", "-m data_analysis /app/data/sample.csv"]
+#CMD ["python", "-m data_analysis --input_file_dir /data/input/sample_data.csv --output_dir /data/input/output/"]
+
+
