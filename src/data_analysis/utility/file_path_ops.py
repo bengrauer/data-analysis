@@ -12,8 +12,15 @@ def check_is_directory(file_or_directory):
         return False
 
 
-def directory_exists(input_directory):
-    return os.path.exists(input_directory)
+def directory_exists(directory: str, auto_create: bool):
+    try:
+        if not os.path.exists(directory):
+            if auto_create:
+                print(f"Directory {directory} not found.  Attempting to create.")
+                os.mkdir(directory)
+    except OSError as os_error:
+        raise
+    return True
 
 
 def append_analysis_directory(input_directory):

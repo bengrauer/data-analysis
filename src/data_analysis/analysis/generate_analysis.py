@@ -11,6 +11,7 @@ import xlsxwriter
 from xlsxwriter.utility import xl_rowcol_to_cell
 
 from data_analysis.utility.file_path_ops import (check_is_directory,
+                                   directory_exists,
                                    append_analysis_directory,
                                    load_file,
                                    check_is_file)
@@ -310,7 +311,7 @@ def run_analysis_routine(file_or_directory, output_directory):
         is_path_to_analyze = False
         raise Exception(f"Error - Invalid file or path passed in.  {file_or_directory}")
 
-    if not check_is_directory(output_directory):
+    if not directory_exists(directory=output_directory, auto_create=True):
         raise Exception(f"Error - Invalid output directory passed in.  {output_directory}")
 
     if is_path_to_analyze:
