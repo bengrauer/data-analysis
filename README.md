@@ -1,8 +1,12 @@
 # data-analysis
-Personal project used for data profiling, show dov distributions, sample, data, etc.  Also exports data to excel for 
+Personal project used for data profiling, show dov distributions, sample, data, etc.  Exports data to excel for 
 analysis and notes.  Was Used as a starting point for Kaggle competitions to look at data and think about features.
 
 Not open for PRs due to this being a personal project.
+
+## Example Output
+![Alt text](/docs/data_analysis_example_pic_dov.png)
+
 
 ## Installation
 - Package Install
@@ -29,5 +33,3 @@ export PTYHONPATH="${PYTHONPATH}:$INSTALL_PATH"
 python -m data_analysis --input_file_dir $INPUT_FILE_OR_PATH --output_dir $OUTPUT_FILE_OR_PATH
 ```
 
-## Example Output
-![Alt text](/docs/data_analysis_example_pic_dov.png)
