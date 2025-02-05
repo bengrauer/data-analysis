@@ -321,7 +321,7 @@ def run_analysis_routine(file_or_directory, output_directory):
         for file_name in os.listdir(file_or_directory):
             if len(file_name) > 3 and file_name[-4:] == '.csv':
                 print('input file: ' + directory_to_evaluate + file_name)
-                output_file_name = os.path.join(output_directory, ('analysis_' + str(file_name)[:-4] + '_v2.xlsx'))
+                output_file_name = os.path.join(output_directory, ('analysis_' + str(file_name)[:-4] + '.xlsx'))
                 print('file to generate: ' + output_file_name)
                 generate_excel_workbook(directory_to_evaluate + file_name, output_file_name)
 
@@ -330,15 +330,6 @@ def run_analysis_routine(file_or_directory, output_directory):
         input_directory = os.path.dirname(file_or_directory)
         if not output_directory:
             output_directory = append_analysis_directory(input_directory)
-        output_file_name = os.path.join(output_directory, ('analysis_' + str(file_name)[:-4] + '_v2.xlsx'))
+        output_file_name = os.path.join(output_directory, ('analysis_' + str(file_name)[:-4] + '.xlsx'))
         print('file to generate: ' + output_file_name)
         generate_excel_workbook(file_or_directory, output_file_name)
-
-
-# if __name__ == '__main__':
-#     if len(sys.argv) > 1:
-#         print('arg 1: ' + str(sys.argv[1]))
-#         file_or_directory = sys.argv[1]
-# 
-#     file_or_directory = "/media/data/project/data/kg_RussiaHousing/train.csv"
-#     run_analysis_routine(file_or_directory)
