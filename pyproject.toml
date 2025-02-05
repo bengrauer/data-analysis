@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "data_analysis"
-version = "2025.01.26"
+version = "2025.02"
 dependencies = [
   "numpy==2.2.2", 
   "pandas==2.2.3",
