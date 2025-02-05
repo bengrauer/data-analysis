@@ -1,10 +1,13 @@
 #!/bin/bash
 
-# script takes one argument: build, run, delete
+# script takes one argument: build, run, delete, all, help
 # requires os env vars "$GITHUB_USER" and "$GITHUB_PAT" set before hand
+# maps volume to //tmp/data-analysis/data/
 
 operation_arg=$1
-echo "Operation Input: $operation_arg"
+echo "Input Parameter: $operation_arg"
+
+cd ..
 
 set -e
 
@@ -16,18 +19,16 @@ RUN_COMMAND="docker run -it --name data-analysis --net=host data-analysis"
 DELETE_CONTAINER_COMMAND="docker container rm data-analysis"
 DELETE_IMAGE_COMMAND="docker image rm data-analysis"
 
-# no parameter - build, run and delete all in sequence
-if [ -z $operation_arg ]; then
-  cd ..
+# singular options
+if [ -z $operation_arg ] || [ $operation_arg = "help" ]; then
+  echo "Possible inputs are 'build', 'run', 'delete', or 'all' to run all commands in sequence."
+elif [ $operation_arg = "all" ]; then
   eval "$BUILD_COMMAND"
   eval "$RUN_COMMAND"
   eval "$DELETE_CONTAINER_COMMAND"
   eval "$DELETE_IMAGE_COMMAND"  
-fi
+elif [ $operation_arg = "build" ]; then
 
-# singular options
-if [ $operation_arg = "build" ]; then
-  cd ..
   eval "$BUILD_COMMAND"
 elif [ $operation_arg = "run" ]; then
   eval "$RUN_COMMAND"
