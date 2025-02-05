@@ -16,6 +16,7 @@ BUILD_COMMAND="docker build -t data-analysis -f Dockerfile . \
   --build-arg GITHUB_USER=$GITHUB_USER \
   --build-arg GITHUB_PAT=$GITHUB_PAT"
 RUN_COMMAND="docker run -it --name data-analysis --net=host data-analysis"
+RUN_COMMAND="docker run --mount type=bind,src=$(pwd)/data/,dst=\"/data/\" data-analysis python run_docker_app.py \"/data/input/\" \"/data/output/\""
 DELETE_CONTAINER_COMMAND="docker container rm data-analysis"
 DELETE_IMAGE_COMMAND="docker image rm data-analysis"
 
