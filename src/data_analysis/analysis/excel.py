@@ -58,6 +58,7 @@ def worksheet_add_df(input_workbook: xlsxwriter.Workbook,
 
 def add_sheet_summary_and_dov(workbook, df: pandas.DataFrame, summary_df: pandas.DataFrame):
     # Adds the main summary, domain of values and distribution percentages
+    func_name = add_sheet_summary_and_dov.__name__
 
     worksheet = workbook.add_worksheet('DOV')
 
@@ -181,11 +182,12 @@ def add_sheet_summary_and_dov(workbook, df: pandas.DataFrame, summary_df: pandas
 
     worksheet.freeze_panes(offset_row_data_header, 1)
 
-    print('excel sheet completed - DOV')
+    print(f"{func_name}: sheet completed - DOV")
 
 
 def add_sheet_summary_ordered(workbook, summary_df: pandas.DataFrame):
     # Add the summary stats in ordered fashion for easy filtering
+    func_name = add_sheet_summary_ordered.__name__
 
     worksheet = workbook.add_worksheet('OrderSummaryStats')
     worksheet_add_df(input_workbook=workbook,
@@ -196,11 +198,12 @@ def add_sheet_summary_ordered(workbook, summary_df: pandas.DataFrame):
                      input_start_col=0,
                      input_use_index=True)
 
-    print('excel sheet completed - Summary Stats Ordered')
+    print(f"{func_name}: sheet completed - Summary Stats Ordered")
 
 
 def add_sheet_correlation(workbook, df: pandas.DataFrame):
     # Correlation worksheet
+    func_name = add_sheet_correlation.__name__
 
     worksheet = workbook.add_worksheet('Correlation')
     df_corr = df[df.select_dtypes(include='number').columns].corr().round(ROUND_PRECISION)
@@ -230,11 +233,12 @@ def add_sheet_correlation(workbook, df: pandas.DataFrame):
                                             'value': -0.60,
                                             'format': format_low})
 
-    print('excel sheet completed - Correlation')
+    print(f"{func_name}: sheet completed - Correlation")
 
 
 def add_sheet_covariance(workbook, df: pandas.DataFrame):
     # Covariance worksheet
+    func_name = add_sheet_covariance.__name__
     worksheet = workbook.add_worksheet('Co-Variance')
     worksheet_add_df(input_workbook=workbook,
                      input_worksheet=worksheet,
@@ -244,11 +248,12 @@ def add_sheet_covariance(workbook, df: pandas.DataFrame):
                      input_start_col=0,
                      input_use_index=True)
 
-    print('excel sheet completed - Covariance')
+    print(f"{func_name}: sheet completed - Covariance")
 
 
 def add_sheet_samples(workbook, df: pandas.DataFrame):
     # Head / Tail samples worksheet
+    func_name = add_sheet_samples.__name__
 
     worksheet = workbook.add_worksheet('150samples')
     worksheet_add_df(input_workbook=workbook,
@@ -267,11 +272,12 @@ def add_sheet_samples(workbook, df: pandas.DataFrame):
                      input_start_col=0,
                      input_use_index=True)
 
-    print('excel sheet completed - 150 Head / Tail Samples')
+    print(f"{func_name}: sheet completed - 150 Head / Tail Samples")
 
 
 def generate_excel_workbook(input_file_name: str, output_file_name: str):
     # Main function to load the file and generate the excel workbook
+    func_name = generate_excel_workbook.__name__
 
     df = load_file(input_file_name)
     workbook_bytes_io, workbook = workbook_get_in_memory_file()
@@ -287,4 +293,4 @@ def generate_excel_workbook(input_file_name: str, output_file_name: str):
     workbook.close()
     workbook_write_in_memory_file_os(output_file_name=output_file_name, workbook_bytes_io=workbook_bytes_io)
 
-    print('excel workbook generated: ' + output_file_name)
+    print(f"{func_name}: excel workbook generated: {output_file_name}")

@@ -19,25 +19,29 @@ def read_options(args=sys.argv[1:]):
 
 
 if __name__ == '__main__':
+    func_name="__main__"
 
     if len(sys.argv) > 1:
-        print('arg 1: ' + str(sys.argv[1]))
+        print(f"{func_name}: sys.argv[1]: {str(sys.argv[1])}")
         file_or_directory = sys.argv[1]
 
     if len(sys.argv) > 2:
-        print('arg 2: ' + str(sys.argv[2]))
+        print(f"{func_name}: sys.argv[2]: {str(sys.argv[2])}")
         output_directory = sys.argv[2]
 
     options = read_options(sys.argv[1:])
 
     if options.input_file_dir:
         file_or_directory = options.input_file_dir
+        print(f"{func_name}: options.input_file_dir: {options.input_file_dir}")
     else:
         file_or_directory = ""
 
     if options.output_dir:
         output_directory = options.output_dir
+        print(f"{func_name}: options.output_dir: {options.output_dir}")
     else:
         output_directory = ""
 
-    run_analysis_routine(file_or_directory=file_or_directory, output_directory=output_directory)
+    run_analysis_routine(file_or_directory=file_or_directory,
+                         output_directory=output_directory)

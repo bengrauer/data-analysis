@@ -13,6 +13,7 @@ from data_analysis.utility.file_path_ops import (check_is_directory,
 
 
 def run_analysis_routine(file_or_directory: str, output_directory: str):
+    func_name=run_analysis_routine.__name__
     directory_to_evaluate = ""
 
     if check_is_file(file_or_directory):
@@ -34,9 +35,9 @@ def run_analysis_routine(file_or_directory: str, output_directory: str):
 
         for file_name in os.listdir(file_or_directory):
             if len(file_name) > 3 and file_name[-4:] == '.csv':
-                print('input file: ' + directory_to_evaluate + file_name)
+                print(f"{func_name}: input file: {directory_to_evaluate + file_name}")
                 output_file_name = os.path.join(output_directory, ('analysis_' + str(file_name)[:-4] + '.xlsx'))
-                print('file to generate: ' + output_file_name)
+                print(f"{func_name}: file to generate: {output_file_name}")
                 generate_excel_workbook(directory_to_evaluate + file_name, output_file_name)
 
     elif is_file_to_analyze:
@@ -45,5 +46,5 @@ def run_analysis_routine(file_or_directory: str, output_directory: str):
         if not output_directory:
             output_directory = append_analysis_directory(input_directory)
         output_file_name = os.path.join(output_directory, ('analysis_' + str(file_name)[:-4] + '.xlsx'))
-        print('file to generate: ' + output_file_name)
+        print(f"{func_name}: file to generate: {output_file_name}")
         generate_excel_workbook(file_or_directory, output_file_name)
