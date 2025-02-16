@@ -1,12 +1,28 @@
+import os
 import numpy as np
 import pandas
 import pandas as pd
 import xlsxwriter
 from xlsxwriter.utility import xl_rowcol_to_cell
+from io import BytesIO
 
 from data_analysis.analysis.summary import generate_summary_stats, ROUND_PRECISION
 from data_analysis.utility.file_path_ops import load_file
 
+
+def workbook_get_physical_file(output_file_name) -> xlsxwriter.Workbook:
+    # get the workbook for an os physical file
+    return xlsxwriter.Workbook(output_file_name, {'nan_inf_to_errors': True})
+
+def workbook_get_in_memory_file() -> tuple[BytesIO, xlsxwriter.Workbook]:
+    # get in memory workbook
+    workbook_bytes_io = BytesIO()
+    return workbook_bytes_io, xlsxwriter.Workbook(workbook_bytes_io)
+
+def workbook_write_in_memory_file_os(output_file_name: str, workbook_bytes_io):
+    # write workbook from in memory to os file
+    with open(output_file_name, 'wb') as f:
+        f.write(workbook_bytes_io.getvalue())
 
 def worksheet_add_df(input_workbook: xlsxwriter.Workbook,
                      input_worksheet: xlsxwriter.Workbook.worksheet_class,
@@ -258,7 +274,7 @@ def generate_excel_workbook(input_file_name: str, output_file_name: str):
     # Main function to load the file and generate the excel workbook
 
     df = load_file(input_file_name)
-    workbook = xlsxwriter.Workbook(output_file_name, {'nan_inf_to_errors': True})
+    workbook_bytes_io, workbook = workbook_get_in_memory_file()
 
     summary_df = generate_summary_stats(df)
 
@@ -269,4 +285,6 @@ def generate_excel_workbook(input_file_name: str, output_file_name: str):
     add_sheet_samples(workbook, df)
 
     workbook.close()
+    workbook_write_in_memory_file_os(output_file_name=output_file_name, workbook_bytes_io=workbook_bytes_io)
+
     print('excel workbook generated: ' + output_file_name)

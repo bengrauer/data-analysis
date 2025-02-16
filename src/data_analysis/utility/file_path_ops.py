@@ -13,12 +13,12 @@ def check_is_directory(file_or_directory: str):
 
 def directory_exists(directory: str, auto_create: bool):
     try:
-        if not os.path.exists(directory):
+        if os.path.exists(directory) == False:
             if auto_create:
                 print(f"Directory {directory} not found.  Attempting to create.")
                 os.mkdir(directory)
         else:
-            return False
+            return True
     except OSError as os_error:
         raise
     return True
