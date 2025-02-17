@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # script takes one argument: build, run, delete, all, help
-# requires os env vars "$GITHUB_USER" and "$GITHUB_PAT" set before hand
-# maps volume to //tmp/data-analysis/data/
+# maps volume to (project)/data/, which is the code directory
 
 operation_arg=$1
 echo "Input Parameter: $operation_arg"
@@ -16,8 +15,8 @@ BUILD_COMMAND="docker build -t data-analysis -f Dockerfile . \
   --build-arg GITHUB_USER=$GITHUB_USER \
   --build-arg GITHUB_PAT=$GITHUB_PAT"
 RUN_COMMAND="docker run -it --name data-analysis --net=host data-analysis"
-RUN_COMMAND="docker run --mount type=bind,src=$(pwd)/data/,dst=\"/data/\" data-analysis python run_docker_app.py \"/data/input/\" \"/data/output/\""
-DELETE_CONTAINER_COMMAND="docker container rm data-analysis"
+RUN_COMMAND="docker run --name data-analysis-local --mount type=bind,src=$(pwd)/data/,dst=\"/data/\" data-analysis python run_docker_app.py \"/data/input/\" \"/data/output/\""
+DELETE_CONTAINER_COMMAND="docker container rm data-analysis-local"
 DELETE_IMAGE_COMMAND="docker image rm data-analysis"
 
 # singular options
@@ -37,7 +36,7 @@ elif [ $operation_arg = "delete" ]; then
   eval "$DELETE_CONTAINER_COMMAND"
   eval "$DELETE_IMAGE_COMMAND"
 else
-  echo "Invalid operation: $operation_arg"
+  echo "Invalid operation: '$operation_arg'.  Possible inputs are 'build', 'run', 'delete', or 'all' to run all commands in sequence."
   exit 1
 fi
 
