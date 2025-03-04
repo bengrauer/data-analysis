@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "data_analysis"
-version = "2025.02"
+version = "2025.03"
 dependencies = [
-  "numpy==2.2.2", 
-  "pandas==2.2.3",
+  "numpy==1.26.4",
+  "pandas==1.5.3",
   "xlsxwriter==3.2.1",
   "black==24.10.0",
-  "flake8==7.1.1"
+  "flake8==7.1.1",
+  "pydantic-settings==2.7.1"
 ]
 
 [tool.setuptools]
@@ -27,4 +28,13 @@ addopts = "-ra -q"
 testpaths = [
     "tests",
     "integration",
+]
+
+[project.optional-dependencies]
+aws = [
+    "boto3==1.36.21"
+]
+azure= [
+    "azure-storage-blob==12.24.1",
+    "azure-identity==1.15.0"
 ]

@@ -1,8 +1,8 @@
-from src.data_analysis.utility.file_path_ops import (check_is_directory,
-                                                     directory_exists,
-                                                     append_analysis_directory,
-                                                     load_file,
-                                                     check_is_file)
+from src.data_analysis.utility.local_file_ops import (check_is_directory,
+                                                      directory_exists,
+                                                      append_analysis_directory,
+                                                      load_file,
+                                                      check_is_file)
 
 
 def test_check_is_directory_pass():

@@ -11,7 +11,7 @@ cd ..
 set -e
 
 # Set commands
-BUILD_COMMAND="docker build -t data-analysis -f Dockerfile . \
+BUILD_COMMAND="docker build --no-cache -t data-analysis -f Dockerfile . \
   --build-arg GITHUB_USER=$GITHUB_USER \
   --build-arg GITHUB_PAT=$GITHUB_PAT"
 RUN_COMMAND="docker run -it --name data-analysis --net=host data-analysis"

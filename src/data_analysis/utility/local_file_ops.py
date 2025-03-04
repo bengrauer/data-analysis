@@ -1,9 +1,10 @@
+import io
 import os
 import errno
 import pandas as pd
 
 
-def check_is_directory(file_or_directory: str):
+def check_is_directory(file_or_directory: str) -> bool:
     func_name=check_is_directory.__name__
     if os.path.isdir(file_or_directory):
         print(f"{func_name}: directory determined.")
@@ -12,7 +13,7 @@ def check_is_directory(file_or_directory: str):
         return False
 
 
-def directory_exists(directory: str, auto_create: bool):
+def directory_exists(directory: str, auto_create: bool) -> bool:
     func_name = directory_exists.__name__
     try:
         if os.path.exists(directory) == False:
@@ -26,7 +27,7 @@ def directory_exists(directory: str, auto_create: bool):
     return True
 
 
-def append_analysis_directory(input_directory: str):
+def append_analysis_directory(input_directory: str) -> str:
     func_name = append_analysis_directory.__name__
     analysis_directory = os.path.join(input_directory, "analysis")
 
@@ -43,14 +44,21 @@ def append_analysis_directory(input_directory: str):
     return analysis_directory
 
 
-def load_file(file_name: str):
+def load_file(file_name: str) -> pd.DataFrame:
     return pd.read_csv(file_name)
 
 
-def check_is_file(file_or_directory: str):
+def check_is_file(file_or_directory: str) -> bool:
     func_name = check_is_file.__name__
     if os.path.isfile(file_or_directory):
         print(f"{func_name}: single file determined")
         return True
     else:
         return False
+
+
+def workbook_write_in_memory_file_os(output_file_name: str,
+                                     file_bytes_io: io.BytesIO):
+    # write workbook from in memory to os file
+    with open(output_file_name, 'wb') as f:
+        f.write(file_bytes_io.getvalue())
