@@ -11,7 +11,10 @@ dependencies = [
   "xlsxwriter==3.2.1",
   "black==24.10.0",
   "flake8==7.1.1",
-  "pydantic-settings==2.7.1"
+  "pydantic-settings==2.7.1",
+  "boto3==1.36.21",
+  "azure-storage-blob==12.24.1",
+  "azure-identity==1.15.0"
 ]
 
 [tool.setuptools]
@@ -28,13 +31,4 @@ addopts = "-ra -q"
 testpaths = [
     "tests",
     "integration",
-]
-
-[project.optional-dependencies]
-aws = [
-    "boto3==1.36.21"
-]
-azure= [
-    "azure-storage-blob==12.24.1",
-    "azure-identity==1.15.0"
 ]

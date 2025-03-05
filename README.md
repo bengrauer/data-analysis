@@ -12,8 +12,6 @@ Not open for PRs due to this being a personal project.
 - Package Install
 ```bash
 pip install git+https://github.com/bengrauer/data-analysis.git@main
-# or 
-pip install git+https://github.com/bengrauer/data-analysis.git@main[azure|aws]
 ```
 
 ## Usage
